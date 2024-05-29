@@ -1,5 +1,5 @@
 package it.unisa.control;
-
+import java.util.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -33,7 +33,14 @@ public class AccountServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String redirectedPage = request.getParameter("page");
-		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + redirectedPage);
+		dispatcher.forward(request, response);
+
+		{
+		List<String> validPages = Arrays.asList("Account.jsp", "Carrello.jsp", "Catalogo.jsp", "Checkout.jsp", "ComposizioneOrdine.jsp", "Dettagli.jsp", "Home.jsp", "Login.jsp", "MieiOrdini.jsp", "Ps4.jsp", "Ps5.jsp", "Registrazione.jsp", "Switch.jsp", "XboxOne.jsp", "XboxSeries.jsp");
+		  if (!validPages.contains(redirectedPage)) { 
+		   redirectedPage = "Home.jsp"; 
+		  }
 		UserDao daoUser = new UserDao();
 		UserBean user = (UserBean) request.getSession().getAttribute("currentSessionUser");
 		IndirizzoSpedizioneBean sped = new IndirizzoSpedizioneBean();
@@ -127,7 +134,9 @@ public class AccountServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + redirectedPage);
 		dispatcher.forward(request, response);
+		
+		
+		  }
 
-	}
-
+	 }
 }

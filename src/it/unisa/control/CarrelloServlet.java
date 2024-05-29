@@ -1,5 +1,5 @@
 package it.unisa.control;
-
+import java.util.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -65,6 +65,13 @@ public class CarrelloServlet extends HttpServlet{
 		
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + redirectedPage);
 			dispatcher.forward(request, response);
+			
+			List<String> validPages = Arrays.asList("Account.jsp", "Carrello.jsp", "Catalogo.jsp", "Checkout.jsp", "ComposizioneOrdine.jsp", "Dettagli.jsp", "Home.jsp", "Login.jsp", "MieiOrdini.jsp", "Ps4.jsp", "Ps5.jsp", "Registrazione.jsp", "Switch.jsp", "XboxOne.jsp", "XboxSeries.jsp");
+			  
+			if (!validPages.contains(redirectedPage)) { // se la pagina non è contenuta nella whitelist
+			   redirectedPage = "Home.jsp"; // reindirizzo sempre alla home
+			  }
+			
 
 	}
 
